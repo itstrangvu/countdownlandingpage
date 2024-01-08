@@ -1,0 +1,15 @@
+{
+  "name": "countdownlandingpage",
+  "version": "1.0.0",
+  "description": "A landing page with countdown timer",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }, 
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./src/input.css -o ./build/css/style.css -- watch",
+    "prettier": "npx prettier --write **/*.html"
+  },
+  "keywords": [],
+  "author": "Trang Vu",
+  "license": "ISC"
+}

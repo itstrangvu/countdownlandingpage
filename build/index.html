@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Landing Page</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
+    <main class="flex min-h-screen bg-slate-900 text-white items-center px-12 space-x-16 justify-center">
+        <div class="flex flex-col items-center space-y-8">
+            <span id="days" class="text-9xl font-semibold font-mono">12</span>
+            <span class="text-3xl">days</span>
+        </div>
+        <div class="flex flex-col items-center space-y-8">
+            <span id="hours" class="text-9xl font-semibold font-mono">08</span>
+            <span class="text-3xl">hours</span>
+        </div>
+        <div class="flex flex-col items-center space-y-8">
+            <span id="minutes" class="text-9xl font-semibold font-mono">34</span>
+            <span class="text-3xl">minutes</span>
+        </div>
+        <div class="flex flex-col items-center space-y-8">
+            <span id="seconds" class="text-9xl font-semibold font-mono">05</span>
+            <span class="text-3xl">seconds</span>
+        </div>
+    </main>
+    
+</body>
+<script>
+    (function () {
+  const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+    //This section so I don't have to keep updating this pen every year
+    let today = new Date(),
+        dd = String(today.getDate()).padStart(2, "0"),
+        mm = String(today.getMonth() + 1).padStart(2, "0"),
+        yyyy = today.getFullYear(),
+        nextYear = yyyy + 1,
+        dayMonth = "04/02/",
+        birthday = dayMonth + yyyy;
+  
+        today = mm + "/" + dd + "/" + yyyy;
+        if (today > birthday) {
+            birthday = dayMonth + nextYear;
+        }
+    //End
+  
+    const countDown = new Date(birthday).getTime(),
+        x = setInterval(function() {    
+
+            const now = new Date().getTime(),
+                distance = countDown - now;
+
+            document.getElementById("days").innerText = Math.floor(distance / (day)),
+            document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
+            document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
+            document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+        }, 0)
+    }());
+</script>
+</html>

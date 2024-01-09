@@ -6,7 +6,7 @@
     <title>Countdown Landing Page</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
+<body class="layer min-h-screen bg-slate-50 dark:bg-black dark:text-white">
     <main class="flex min-h-screen bg-slate-900 text-white items-center px-12 space-x-16 justify-center">
         <div class="flex flex-col items-center space-y-8">
             <span id="days" class="text-9xl font-semibold font-mono">12</span>
@@ -25,6 +25,12 @@
             <span class="text-3xl">seconds</span>
         </div>
     </main>
+    <div class="glow">
+        <div class="glow-dot glow-dot--one">
+        </div>
+        <div class="glow-dot glow-dot--two">
+        </div>
+    </div>
     
 </body>
 <script>
@@ -41,6 +47,7 @@
         yyyy = today.getFullYear(),
         nextYear = yyyy + 1,
         dayMonth = "04/02/",
+        //%MM%DD
         birthday = dayMonth + yyyy;
   
         today = mm + "/" + dd + "/" + yyyy;
@@ -48,18 +55,38 @@
             birthday = dayMonth + nextYear;
         }
     //End
+
+    //This function prepends Zero if it's needed
+    function formatValue(num){
+        const value = (num < 10) ? '0' + num : num;
+        return value;
+    }
+    //End
   
     const countDown = new Date(birthday).getTime(),
         x = setInterval(function() {    
 
-            const now = new Date().getTime(),
-                distance = countDown - now;
+        const now = new Date().getTime(),
+        distance = countDown - now;
 
-            document.getElementById("days").innerText = Math.floor(distance / (day)),
-            document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
-            document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
-            document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+        document.getElementById("days").innerText = formatValue(Math.floor(distance / (day))),
+        document.getElementById("hours").innerText = formatValue(Math.floor((distance % (day)) / (hour))),
+        document.getElementById("minutes").innerText = formatValue(Math.floor((distance % (hour)) / (minute))),
+        document.getElementById("seconds").innerText = formatValue(Math.floor((distance % (minute)) / second));
         }, 0)
     }());
+    
+    
+    //Code for the glow
+    const layer = document.querySelector('.layer');
+    const glow = document.querySelector('.glow');
+    const layerSizes = layer.getBoundingClientRect();
+
+    const onMousemove = (event) => {
+    glow.style.transform = `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, ${event.offsetX}, ${event.offsetY}, 0, 1)`;
+    };
+
+    layer.addEventListener('mousemove', onMousemove);
+    // End
 </script>
 </html>

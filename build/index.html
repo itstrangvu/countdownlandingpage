@@ -6,8 +6,8 @@
     <title>Countdown Landing Page</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="layer min-h-screen bg-slate-50 dark:bg-black dark:text-white">
-    <main class="flex min-h-screen bg-slate-900 text-white items-center px-12 space-x-16 justify-center">
+<body class="min-h-screen bg-slate-50 dark:bg-black dark:text-white">
+    <main class="layer flex min-h-screen bg-slate-900 text-white items-center px-12 space-x-16 justify-center">
         <div class="flex flex-col items-center space-y-8">
             <span id="days" class="text-9xl font-semibold font-mono">12</span>
             <span class="text-3xl">days</span>
@@ -35,50 +35,49 @@
 </body>
 <script>
     (function () {
-  const second = 1000,
+        const second = 1000,
         minute = second * 60,
         hour = minute * 60,
         day = hour * 24;
 
-    //This section so I don't have to keep updating this pen every year
-    let today = new Date(),
-        dd = String(today.getDate()).padStart(2, "0"),
-        mm = String(today.getMonth() + 1).padStart(2, "0"),
-        yyyy = today.getFullYear(),
-        nextYear = yyyy + 1,
-        dayMonth = "04/02/",
-        //%MM%DD
-        birthday = dayMonth + yyyy;
-  
-        today = mm + "/" + dd + "/" + yyyy;
-        if (today > birthday) {
-            birthday = dayMonth + nextYear;
+        //This section so I don't have to keep updating this pen every year
+        let today = new Date(),
+            dd = String(today.getDate()).padStart(2, "0"),
+            mm = String(today.getMonth() + 1).padStart(2, "0"),
+            yyyy = today.getFullYear(),
+            nextYear = yyyy + 1,
+            dayMonth = "04/02/",
+            //%MM%DD
+            birthday = dayMonth + yyyy;
+
+            today = mm + "/" + dd + "/" + yyyy;
+            if (today > birthday) {
+                birthday = dayMonth + nextYear;
+            }
+        //End
+
+        //This function prepends zero if it's needed
+        function formatValue(num){
+            const value = (num < 10) ? '0' + num : num;
+            return value;
         }
-    //End
-
-    //This function prepends Zero if it's needed
-    function formatValue(num){
-        const value = (num < 10) ? '0' + num : num;
-        return value;
-    }
-    //End
+        //End
   
-    const countDown = new Date(birthday).getTime(),
+        const countDown = new Date(birthday).getTime(),
         x = setInterval(function() {    
+            const now = new Date().getTime(),
+            distance = countDown - now;
 
-        const now = new Date().getTime(),
-        distance = countDown - now;
-
-        document.getElementById("days").innerText = formatValue(Math.floor(distance / (day))),
-        document.getElementById("hours").innerText = formatValue(Math.floor((distance % (day)) / (hour))),
-        document.getElementById("minutes").innerText = formatValue(Math.floor((distance % (hour)) / (minute))),
-        document.getElementById("seconds").innerText = formatValue(Math.floor((distance % (minute)) / second));
+            document.getElementById("days").innerText = formatValue(Math.floor(distance / (day))),
+            document.getElementById("hours").innerText = formatValue(Math.floor((distance % (day)) / (hour))),
+            document.getElementById("minutes").innerText = formatValue(Math.floor((distance % (hour)) / (minute))),
+            document.getElementById("seconds").innerText = formatValue(Math.floor((distance % (minute)) / second));
         }, 0)
     }());
     
     
     //Code for the glow
-    const layer = document.querySelector('.layer');
+    const layer = document.body;
     const glow = document.querySelector('.glow');
     const layerSizes = layer.getBoundingClientRect();
 

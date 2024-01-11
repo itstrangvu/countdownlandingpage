@@ -31,17 +31,21 @@
     transform: translate3d(-50%, -50%, 0);
     opacity: 0.5;
     animation: glow-dot-move 12s linear 0s infinite normal forwards;
+    z-index: 0;
   }
   
   .glow-dot--one {
     background-color: blue;
     transform: translate3d(-60%, -60%, 0);
+    z-index: 0;
+
   }
   
   .glow-dot--two {
     background-color: cyan;
     transform: translate3d(-40%, -40%, 0);
     animation-direction: reverse;
+    z-index: 0;
   }
   
   @keyframes glow-dot-move {
@@ -67,3 +71,9 @@
       transform: translate3d(-50%, -50%, 0);
     }
   }
+
+  div,span {
+    pointer-events: none;
+    z-index: 1;
+  }
+
